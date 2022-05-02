@@ -22,6 +22,10 @@
     "tsutils": "~3.21",
     "typescript": "~4.6"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aspelund/story-func"
+  },
   "scripts": {    
     "clean": "rimraf coverage build tmp",
     "prebuild": "npm run lint",
