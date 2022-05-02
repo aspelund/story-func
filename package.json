@@ -2,7 +2,7 @@
   "name": "story-func",
   "version": "0.5.0",
   "description": "Simple package for piping tests and transforms of objects.",
-  "main": "index.js",
+  "main": "./build/index.js",  
   "type": "module",
   "engines": {
     "node": ">= 16.13 <17"
