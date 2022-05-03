@@ -51,6 +51,8 @@ Each `given` can have multiple `when`. In those cases they all need to be fulfil
 `storify` is building an object transformation pipe utilizing the `story` function. `story` takes either a `given` as a property or another `storify`. Each storify can pipe multiple `given` and multiple `storify`.
 In order to follow the principles stated above, a top level story would only contain stories that are focusing on specific domain properties, and each child story should focus on a single property that may or may not be changed. The `setMutableProperty` defines what properties that can be changed and is required in any `story` pipeline that contains a `given`. The property that may be changed by the pipeline is described as a selector. For example, if the `foo` object would be mutable in the pipeline and the object that the pipeline is applied to is `{foo:'bar'}` then the selector would be `foo`. If the property is deeper into the project the selector uses dots as separators. For the `bar` property to be mutable in the `{foo: { bar: 1 }}` object, the selector would be `foo.bar`.
 
+Once the pipeline is created it can be applied to an object with the function `apply`. The object sent to `apply` is then sent through the pipeline. The original object is not changed and the returned value contains a copy of the original object but with any transformations that has been applied.
+
 The stories should be defined in separation of IO logic so that each pipeline can be tested with full coverage.
 
 ## Thoughs
