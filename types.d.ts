@@ -27,3 +27,6 @@ export interface Storify {
   setMutableProperty(selector: string): Storify;
   apply(obj: any): any;
 }
+
+export function given(initialTest?: Test): Given;
+export function storify(): Storify;
