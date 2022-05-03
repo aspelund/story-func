@@ -3,6 +3,7 @@
   "version": "0.5.3",
   "description": "Simple package for piping tests and transforms of objects.",
   "main": "./build/src/index.js",  
+  "types": "./types.d.ts",
   "type": "module",
   "engines": {
     "node": ">= 16.13 <17"

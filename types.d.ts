@@ -1,3 +1,5 @@
+export as namespace storyFunc;
+
 export enum PipeTypes {
   when,
   then,
