@@ -2,6 +2,16 @@
 
 Story-func is a simple library created to support developers to embrace a declarative programming paradigm. The principles that this library is meant to support are the following:
 
+## Installation
+
+    npm install story-func
+
+In the code, simply import `storify` and `given`.
+
+    import { storify, given } from 'story-fun';
+
+Look at the example below to try it out.
+
 ## Principles
 
 1. Clarity on how logic impacts object transformation
