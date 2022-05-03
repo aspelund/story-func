@@ -1,6 +1,6 @@
 {
   "name": "story-func",
-  "version": "0.5.6",
+  "version": "0.5.7",
   "description": "Simple package for piping tests and transforms of objects.",
   "main": "./build/src/index.js",  
   "types": "./types.d.ts",

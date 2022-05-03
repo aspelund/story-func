@@ -8,7 +8,7 @@ Story-func is a simple library created to support developers to embrace a declar
 
 In the code, simply import `storify` and `given`.
 
-    import { storify, given } from 'story-fun';
+    import { storify, given } from 'story-func';
 
 Look at the example below to try it out.
 
