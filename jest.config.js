@@ -1,14 +1,12 @@
 export default {
   testEnvironment: 'node',
-  preset: 'ts-jest/presets/default-esm',
-  globals: {
-    'ts-jest': {
-      useESM: true,
-    },
+  preset: 'ts-jest',
+  transform: {
+    "node_modules/variables/.+\\.(j|t)sx?$": "ts-jest"
   },
-  moduleNameMapper: {
-    '^(\\.{1,2}/.*)\\.js$': '$1',
-  },
+  transformIgnorePatterns: [
+    "node_modules/(?!variables/.*)"
+  ],
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.ts$',
   coverageDirectory: 'coverage',
   collectCoverageFrom: [

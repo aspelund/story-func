@@ -5,13 +5,13 @@ export enum PipeTypes {
   story,
 }
 
-export type Test = (obj: any) => boolean;
-export type Transform = (obj: any) => any;
+export type Test = <Type>(obj: Type) => boolean;
+export type Transform = <Type>(obj: Type) => Type;
 
 export interface Given {
   when(test: Test): Given;
   then(test: Transform): Given;
-  apply(obj: object): object;
+  apply<Type>(obj: Type): Type;
   pipeType: PipeTypes;
 }
 export type PipeObject = {
@@ -23,5 +23,5 @@ export interface Storify {
   pipeType: PipeTypes;
   story(given: Storify | Given): Storify;
   setMutableProperty(selector: string): Storify;
-  apply(obj: any): any;
+  apply<Type>(obj: Type): Type;
 }

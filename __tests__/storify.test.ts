@@ -1,10 +1,32 @@
 import { storify } from "../src/storify";
 import { given } from "../src/given";
 
-const hasAge = (obj) => !!obj.age;
-const under18 = (obj) => obj.age < 18;
-const setAlcoholFalse = (obj) => ({ ...obj, okForAlcohol: false });
-const setPharmacyFalse = (obj) => ({ ...obj, okForPharmacy: false });
+type ApaHej = {
+  apa: string;
+  hej: string;
+};
+type HejApaDapa = {
+  hej: string;
+  apa: {
+    dapa: string;
+  };
+};
+type HejApaDapaLapa = {
+  hej: string;
+  apa: {
+    dapa: {
+      lapa: string;
+    };
+  };
+};
+
+const hasAge = <AgeCountry>(obj) => !!obj.age;
+const under18 = <AgeCountry>(obj) => obj.age < 18;
+const setAlcoholFalse = <AgeCountry>(obj) => ({ ...obj, okForAlcohol: false });
+const setPharmacyFalse = <AgeCountry>(obj) => ({
+  ...obj,
+  okForPharmacy: false,
+});
 
 describe("story", () => {
   const input = {
@@ -38,8 +60,13 @@ describe("story", () => {
   it("should throw an error", () => {
     expect(() => {
       storify()
-        .story(given(() => true).then((obj) => (obj.apa = "dapa")))
-        .apply({ hej: "hopp" });
+        .story(
+          given(<ApaHej>(obj) => true).then(<ApaHej>(obj) => {
+            obj.apa = "dapa";
+            return obj;
+          })
+        )
+        .apply(<ApaHej>{ hej: "hopp" });
     }).toThrowError();
   });
   it("should throw an error", () => {
@@ -47,10 +74,15 @@ describe("story", () => {
       storify()
         .story(
           storify()
-            .story(given(() => true).then((obj) => (obj.apa = "dapa")))
+            .story(
+              given(<ApaHej>(obj) => true).then(<ApaHej>(obj) => {
+                obj.apa = "dapa";
+                return obj;
+              })
+            )
             .setMutableProperty("hejhoj")
         )
-        .apply({ hej: "hopp" });
+        .apply(<ApaHej>{ hej: "hopp" });
     }).toThrow();
   });
   it("should throw an error", () => {
@@ -59,11 +91,14 @@ describe("story", () => {
         .story(
           storify()
             .story(
-              given(() => true).then((obj) => (obj.apa = { dapa: "dapa" }))
+              given(<HejApaDapa>(obj) => true).then(<HejApaDapa>(obj) => {
+                obj.apa = { dapa: "dapa" };
+                return obj;
+              })
             )
             .setMutableProperty("hej.hoj")
         )
-        .apply({ hej: "hopp", apa: { dapa: "lapa" } });
+        .apply(<HejApaDapa>{ hej: "hopp", apa: { dapa: "lapa" } });
     }).toThrow();
   });
   it("should work with nested things", () => {
@@ -73,14 +108,14 @@ describe("story", () => {
           storify()
             .setMutableProperty("apa.dapa")
             .story(
-              given(() => true).then((obj) => {
+              given(<HejApaDapa>(obj) => true).then(<HejApaDapa>(obj) => {
                 obj.apa = { dapa: "dapa" };
                 return obj;
               })
             )
         )
-        .apply({ hej: "hopp", apa: { dapa: "lapa" } })
-    ).toEqual({ hej: "hopp", apa: { dapa: "dapa" } });
+        .apply(<HejApaDapa>{ hej: "hopp", apa: { dapa: "lapa" } })
+    ).toEqual(<HejApaDapa>{ hej: "hopp", apa: { dapa: "dapa" } });
   });
   it("should work with nested things #2", () => {
     expect(
@@ -89,13 +124,15 @@ describe("story", () => {
           storify()
             .setMutableProperty("apa.dapa.lapa")
             .story(
-              given(() => true).then((obj) => {
-                obj.apa = { dapa: { lapa: "sapa" } };
-                return obj;
-              })
+              given(<HejApaDapaLapa>(obj) => true).then(
+                <HejApaDapaLapa>(obj) => {
+                  obj.apa = { dapa: { lapa: "sapa" } };
+                  return obj;
+                }
+              )
             )
         )
-        .apply({ hej: "hopp", apa: { dapa: { lapa: "napa" } } })
-    ).toEqual({ hej: "hopp", apa: { dapa: { lapa: "sapa" } } });
+        .apply(<HejApaDapaLapa>{ hej: "hopp", apa: { dapa: { lapa: "napa" } } })
+    ).toEqual(<HejApaDapaLapa>{ hej: "hopp", apa: { dapa: { lapa: "sapa" } } });
   });
 });
